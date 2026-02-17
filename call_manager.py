@@ -3,15 +3,15 @@ import asyncio
 from pyrogram import Client
 from pytgcalls import PyTgCalls
 from pytgcalls.types import MediaStream
-from pytgcalls.types.input_stream.quality import HighQualityVideo
 
 class CallManager:
+
     def __init__(self):
         self.active_calls = {}
 
     async def start_call(self, api_id, api_hash, phone, target, media_url):
         call_id = str(uuid.uuid4())
-        
+
         # Criar cliente Pyrogram
         client = Client(
             f"session_{call_id}",
@@ -19,26 +19,26 @@ class CallManager:
             api_hash=api_hash,
             phone_number=phone
         )
-        
+
         await client.start()
-        
+
         # Inicializar PyTgCalls
         call = PyTgCalls(client)
         await call.start()
-        
-        # Iniciar chamada com vídeo
-       await client.play(
-    chat_id,
-    MediaStream(video_path)
-)
-        
+
+        # Iniciar chamada com mídia
+        await call.play(
+            target,
+            MediaStream(media_url)
+        )
+
         self.active_calls[call_id] = {
             "client": client,
             "call": call,
             "status": "in_progress",
             "target": target
         }
-        
+
         return call_id
 
     async def stop_call(self, call_id):
@@ -52,5 +52,3 @@ class CallManager:
         if call_id in self.active_calls:
             return {"call_id": call_id, "status": self.active_calls[call_id]["status"]}
         return {"call_id": call_id, "status": "not_found"}
-
-
