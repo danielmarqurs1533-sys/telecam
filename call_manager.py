@@ -27,14 +27,10 @@ class CallManager:
         await call.start()
         
         # Iniciar chamada com vídeo
-        await call.join_group_call(
-            target,  # chat_id ou username
-            InputVideoStream(
-                media_url,
-                HighQualityVideo(),
-            ),
-            InputAudioStream(media_url),  # áudio do mesmo vídeo
-        )
+       await client.play(
+    chat_id,
+    MediaStream(video_path)
+)
         
         self.active_calls[call_id] = {
             "client": client,
@@ -56,4 +52,5 @@ class CallManager:
         if call_id in self.active_calls:
             return {"call_id": call_id, "status": self.active_calls[call_id]["status"]}
         return {"call_id": call_id, "status": "not_found"}
+
 
