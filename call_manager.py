@@ -2,7 +2,7 @@ import uuid
 import asyncio
 from pyrogram import Client
 from pytgcalls import PyTgCalls
-from pytgcalls.types import MediaStream
+from pytgcalls.types.input_stream import InputAudioStream, InputVideoStream
 from pytgcalls.types.input_stream.quality import HighQualityVideo
 
 class CallManager:
@@ -56,4 +56,3 @@ class CallManager:
         if call_id in self.active_calls:
             return {"call_id": call_id, "status": self.active_calls[call_id]["status"]}
         return {"call_id": call_id, "status": "not_found"}
-
