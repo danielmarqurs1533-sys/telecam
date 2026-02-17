@@ -1,7 +1,7 @@
 fastapi==0.104.1
 uvicorn==0.24.0
 pyrogram==2.0.106
-pytgcalls==2.1.0
+pytgcalls==3.0.0.dev24
 tgcrypto==1.2.5
 aiofiles==23.2.1
 python-multipart==0.0.6
